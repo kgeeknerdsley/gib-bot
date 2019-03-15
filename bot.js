@@ -76,6 +76,10 @@ bot.on('message', (message) => { //listens for messages
 				spotsOn(message);
 				break;
 
+			case "cointoss":
+				coinToss(message);
+				break;
+
 			default:
 				message.channel.send("Command not recognized. Check your spelling dumbass");
 				break;
@@ -121,5 +125,15 @@ function spotsOn(message) {
 			.catch(console.log);
 	} else {
 		message.reply("You gotta be in a voice channel so you can hear this hoe");
+	}
+}
+
+function coinToss(message) {
+	var toss = Math.floor(Math.random());
+
+	if (toss == 0) {
+		message.channel.send("Flipped a coin, got heads");
+	} else {
+		message.channel.send("Flipped a coin, got tails");
 	}
 }
