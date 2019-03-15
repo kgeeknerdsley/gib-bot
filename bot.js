@@ -21,7 +21,9 @@ var insults = [" your mother is a hamster and your father smelt of elderberries"
 	" you smell like you used dog shit as deodorant this morning",
 	" my phone battery lasted longer than your last relationship",
 	" you're a poopface who's up to no good",
-	" your toes are mismatched in length"];
+	" your toes are mismatched in length",
+	" you smell worse than little kid diarrhea",
+	" I bet you have mild phone anxiety"];
 
 //Bot setup, this runs before login occurs
 
