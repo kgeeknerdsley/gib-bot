@@ -1,6 +1,5 @@
 //Gib.bot source by Kevin Worsley
 
-
 const Discord = require('discord.js'); //discord dependency
 const bot = new Discord.Client();
 
