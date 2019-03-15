@@ -1,6 +1,7 @@
 //Gib.bot source by Kevin Worsley
 //did github add this?
 //see this github?
+//i swear to god if you upload that file one more time
 
 const Discord = require('discord.js'); //discord dependency
 const bot = new Discord.Client();
