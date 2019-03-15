@@ -13,6 +13,7 @@ var users = [];
 var currentChannel = 0;
 var currentUser = 0;
 var channels = []; //array to hold channel ids when they're discovered, until i find a better way
+var isPlaying = false;
 
 var insults = [" your mother is a hamster and your father smelt of elderberries",
 	" your penis size is under the national average",
@@ -76,6 +77,10 @@ bot.on('message', (message) => { //listens for messages
 				spotsOn(message);
 				break;
 
+			case "cointoss":
+				coinToss(message);
+				break;
+
 			default:
 				message.channel.send("Command not recognized. Check your spelling dumbass");
 				break;
@@ -106,20 +111,34 @@ function sendMeme(message) {
 }
 
 function spotsOn(message) {
-	if (message.member.voiceChannel) { //if user who sent message is in a voice channel...
+	if (message.member.voiceChannel && !isPlaying) { //if user who sent message is in a voice channel and sound not playing
 
 		var channel = message.member.voiceChannel; //save voice channel as ez variable
 		channel.join() //join that channel
 			.then(connection => { //create instance of connection
+				isPlaying = true;
 				message.reply("spots on!!!"); //tell user it's time
 				const dispatcher = connection.playFile("C:/Users/Kevin/Desktop/Gibbobot/resources/spotson.mp3"); //plays the audio file specified
 
 				dispatcher.on("end", (end) => { //when dispatcher is done, it emits an end signal
+					isPlaying = false;
 					channel.leave(); //leave the channel when end fires
 				})
 			})
 			.catch(console.log);
-	} else {
+	} else if (isPlaying) { //if request arrives while sound playing, don't stop it
+		message.channel.send("Let her fucking finish");
+	} else if (!message.member.voiceChannel) { //if member isn't in a voice channel
 		message.reply("You gotta be in a voice channel so you can hear this hoe");
+	}
+}
+
+function coinToss(message) {
+	var toss = Math.floor(Math.random()*2); //generates a 0 or 1
+
+	if (toss == 0) {
+		message.channel.send("Flipped a coin, got heads");
+	} else {
+		message.channel.send("Flipped a coin, got tails");
 	}
 }
