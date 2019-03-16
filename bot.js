@@ -4,6 +4,11 @@ const Discord = require('discord.js'); //discord dependency
 const bot = new Discord.Client();
 
 token = require('./auth.json'); //pull in the authorization token
+var insults = require("./insults.json");
+var weiner = JSON.parse(insults);
+
+console.log(insults);
+console.log(weiner);
 
 //two functions to clean up the token from JSON -> string
 var tokenString = JSON.stringify(token);
@@ -15,6 +20,7 @@ var currentUser = 0;
 var channels = []; //array to hold channel ids when they're discovered, until i find a better way
 var isPlaying = false;
 
+/*
 var insults = [" your mother is a hamster and your father smelt of elderberries",
 	" your penis size is under the national average",
 	" try not to think, you're gonna sprain your brain",
@@ -25,6 +31,7 @@ var insults = [" your mother is a hamster and your father smelt of elderberries"
 	" your toes are mismatched in length",
 	" you smell worse than little kid diarrhea",
 	" I bet you have mild phone anxiety"];
+	*/
 
 //Bot setup, this runs before login occurs
 
