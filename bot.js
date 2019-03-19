@@ -4,11 +4,12 @@ const Discord = require('discord.js'); //discord dependency
 const bot = new Discord.Client();
 
 token = require('./auth.json'); //pull in the authorization token
+
 var insults = require("./insults.json");
-var weiner = JSON.parse(insults);
+var insultList = [];
 
 console.log(insults);
-console.log(weiner);
+console.log(JSON.parse(insults[1]));
 
 //two functions to clean up the token from JSON -> string
 var tokenString = JSON.stringify(token);
