@@ -6,10 +6,6 @@ const bot = new Discord.Client();
 token = require('./auth.json'); //pull in the authorization token
 
 var insults = require("./insults.json");
-var insultList = [];
-
-console.log(insults);
-console.log(JSON.parse(insults[1]));
 
 //two functions to clean up the token from JSON -> string
 var tokenString = JSON.stringify(token);
@@ -20,19 +16,6 @@ var currentChannel = 0;
 var currentUser = 0;
 var channels = []; //array to hold channel ids when they're discovered, until i find a better way
 var isPlaying = false;
-
-/*
-var insults = [" your mother is a hamster and your father smelt of elderberries",
-	" your penis size is under the national average",
-	" try not to think, you're gonna sprain your brain",
-	" do you have to practice to be that ugly?",
-	" you smell like you used dog shit as deodorant this morning",
-	" my phone battery lasted longer than your last relationship",
-	" you're a poopface who's up to no good",
-	" your toes are mismatched in length",
-	" you smell worse than little kid diarrhea",
-	" I bet you have mild phone anxiety"];
-	*/
 
 //Bot setup, this runs before login occurs
 
@@ -109,9 +92,9 @@ function insultUser(message) {
 	message.channel.send("tactical roast inbound"); //send message to the channel the command originated from
 
 	var randomUser = Math.floor(Math.random() * users.length); //get a random user index
-	var randomInsult = Math.floor(Math.random() * insults.length); //get a random insult index
+	var randomInsult = Math.floor(Math.random() * insults.insults.length); //get a random insult index
 
-	message.channel.send("hey " + users[randomUser] + "," + insults[randomInsult]); //send a message with a random roast targeted to random user
+	message.channel.send("hey " + users[randomUser] + "," + insults.insults[randomInsult]); //send a message with a random roast targeted to random user
 }
 
 function sendMeme(message) {
