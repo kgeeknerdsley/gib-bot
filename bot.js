@@ -95,6 +95,10 @@ bot.on('message', (message) => { //listens for messages
 					spotsOn(message);
 					break;
 
+				case "clawsout":
+					clawsOut(message);
+					break;
+
 				case "cointoss":
 					coinToss(message);
 					break;
@@ -148,16 +152,24 @@ function sendMeme(message) {
 
 }
 
-function spotsOn(message) {
+function playMemeSound(message, type) {
 	if (message.member.voiceChannel && !isPlaying) { //if user who sent message is in a voice channel and sound not playing
 
 		var channel = message.member.voiceChannel; //save voice channel as ez variable
 		channel.join() //join that channel
 			.then(connection => { //create instance of connection
 				isPlaying = true;
-				message.reply("spots on!!!"); //tell user it's time
-				const dispatcher = connection.playFile("./resources/spotson.mp3"); //plays the audio file specified
 
+				var dispatcher;
+
+				if (type == 'ladybug') {
+					message.reply("Spots on!!!"); //tell user it's time
+					dispatcher = connection.playFile("./resources/spotson.mp3"); //plays ladybug sound
+				} else if (type == 'chatnoir') {
+					message.reply("Claws out!!!"); //tell user it's time
+					dispatcher = connection.playFile("./resources/clawsout.mp3"); //plays chat sound
+				}
+				
 				dispatcher.on("end", (end) => { //when dispatcher is done, it emits an end signal
 					isPlaying = false;
 					channel.leave(); //leave the channel when end fires
@@ -165,10 +177,18 @@ function spotsOn(message) {
 			})
 			.catch(console.log);
 	} else if (isPlaying) { //if request arrives while sound playing, don't stop it
-		message.channel.send("Let her fucking finish");
+		message.channel.send("Let it fucking finish");
 	} else if (!message.member.voiceChannel) { //if member isn't in a voice channel
 		message.reply("You gotta be in a voice channel so you can hear this hoe");
 	}
+}
+
+function spotsOn(message) {
+	playMemeSound(message, 'ladybug');
+}
+
+function clawsOut(message) {
+	playMemeSound(message, 'chatnoir');
 }
 
 function coinToss(message) {

@@ -23,6 +23,7 @@
 	"help": [
 		"!cointoss: Tosses a fair coin and returns heads or tails \n",
 		"!insult: Insults a random user on the server \n",
-		"!spotson: Tikki, spots on! \n"
+		"!spotson: Tikki, spots on! \n",
+		"!clawsout: Plagg, claws out! \n"
 	]
 }
