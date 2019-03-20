@@ -1,0 +1,29 @@
+{
+	"insults": [
+		" your mother is a hamster and your father smelt of elderberries",
+		" your penis size is under the national average",
+		" try not to think, you're gonna sprain your brain",
+		" do you have to practice to be that ugly?",
+		" you smell like you used dog shit as deodorant this morning",
+		" my phone battery lasted longer than your last relationship",
+		" you're a poopface who's up to no good",
+		" your toes are mismatched in length",
+		" you smell worse than little kid diarrhea",
+		" I bet you have mild phone anxiety",
+		" you're not worth the effort to make fun of",
+		" I hope you get waitlisted for your core classes",
+		" Billy Bronco doesn't love you",
+		" your mother buys you mega bloks instead of legos",
+		" you're an absolute E G G",
+		" you vacuous toffee-nosed malodouros pervert",
+		" you're worth less than the Venezuelan bolivar",
+		" you're as well put together as Building 8"
+	],
+
+	"help": [
+		"!cointoss: Tosses a fair coin and returns heads or tails \n",
+		"!insult: Insults a random user on the server \n",
+		"!spotson: Tikki, spots on! \n",
+		"!clawsout: Plagg, claws out! \n"
+	]
+}
