@@ -18,6 +18,11 @@
 		" you vacuous toffee-nosed malodouros pervert",
 		" you're worth less than the Venezuelan bolivar",
 		" you're as well put together as Building 8"
+	],
+
+	"help": [
+		"!cointoss: Tosses a fair coin and returns heads or tails",
+		"!insult: Insults a random user on the server",
+		"!spotson: Tikki, spots on!"
 	]
 }
-
