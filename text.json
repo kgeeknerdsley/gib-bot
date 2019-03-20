@@ -14,15 +14,15 @@
 		" I hope you get waitlisted for your core classes",
 		" Billy Bronco doesn't love you",
 		" your mother buys you mega bloks instead of legos",
-		" you absolute E G G",
+		" you're an absolute E G G",
 		" you vacuous toffee-nosed malodouros pervert",
 		" you're worth less than the Venezuelan bolivar",
 		" you're as well put together as Building 8"
 	],
 
 	"help": [
-		"!cointoss: Tosses a fair coin and returns heads or tails",
-		"!insult: Insults a random user on the server",
-		"!spotson: Tikki, spots on!"
+		"!cointoss: Tosses a fair coin and returns heads or tails \n",
+		"!insult: Insults a random user on the server \n",
+		"!spotson: Tikki, spots on! \n"
 	]
 }

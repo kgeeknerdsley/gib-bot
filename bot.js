@@ -34,7 +34,7 @@ var khcID = '483017577602482198';
 
 bot.on('ready', () => { //event listener that readies up bot
 	console.log("Ready to go!");
-	console.log("Connecting as " + bot.user.tag + "\n" + "\n");
+	console.log("Connecting as " + bot.user.tag + "\n");
 	
 	bot.guilds.forEach((guild) => { //list all servers it's connected to
 		//console.log(" " + guild.name);
@@ -71,47 +71,58 @@ bot.on('ready', () => { //event listener that readies up bot
 bot.on('message', (message) => { //listens for messages
 	var msg = new String(message);
 
-	if (msg.indexOf("!") == 0) {
+	
+	if (message.author == bot.user) { //the bot will read its own message and trigger itself if not caught by this
+	} else {
+		if (msg.indexOf("!") == 0) { //if the first character of a message is a command trigger
 
-		var commandText = msg.slice(1); //chops off the ! in commands to read the text
+			var commandText = msg.slice(1); //chops off the ! in commands to read the text
 
-		switch (commandText) {
-			case "insult": 
-				insultUser(message);
-				break;
+			switch (commandText) {
+				case "insult": 
+					insultUser(message);
+					break;
 
-			case "help":
-				helpText(message);
-				break;
+				case "help":
+					helpText(message);
+					break;
 
-			case "meme":
-				sendMeme(message);
-				break;
+				case "meme":
+					sendMeme(message);
+					break;
 
-			case "spotson":
-				spotsOn(message);
-				break;
+				case "spotson":
+					spotsOn(message);
+					break;
 
-			case "cointoss":
-				coinToss(message);
-				break;
+				case "cointoss":
+					coinToss(message);
+					break;
 
-			case "channelTest":
-				channelTest(message);
-				break;
+				case "channelTest":
+					channelTest(message);
+					break;
 
-			default:
-				message.channel.send("Command not recognized. Check your spelling dumbass");
-				break;
+				default:
+					message.channel.send("Command not recognized. Check your spelling dumbass");
+					break;
+			}
 		}
 	}
+
+	
 });
 
 bot.login(finalToken); //logs in the bot to discord servers
 
 function helpText(message) { //displays a message showing off all commands capable
-	console.log("Received a help command.");
-	message.channel.send("Current command list: \n \n !insult: insults a random user \n !spotson: Tikki, spots on!");
+	console.log("Received a help command from " + message.guild.name);
+	var helpString = "";
+
+	for (var test = 0; test < text.help.length; test++) {
+		helpString += text.help[test];
+	}
+	message.channel.send(helpString);
 }
 
 function insultUser(message) {
@@ -185,7 +196,5 @@ function channelTest(message) { //test function for various features
 }
 
 function readValues() { //prints various values i want to see, just an internal test function
-	for (var i = 0; i < theCallUsers.length; i++) {
-		console.log(theCallUsers[i].displayName);
-	}
+	console.log(bot.user);
 }
