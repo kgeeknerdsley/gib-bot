@@ -126,7 +126,7 @@ function helpText(message) { //displays a message showing off all commands capab
 	for (var test = 0; test < text.help.length; test++) {
 		helpString += text.help[test];
 	}
-	message.channel.send(helpString);
+	message.channel.send("Command list:  \n \n" + helpString);
 }
 
 function insultUser(message) {
