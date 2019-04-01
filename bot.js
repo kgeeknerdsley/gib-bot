@@ -111,7 +111,15 @@ bot.login(finalToken); //logs in the bot to discord servers
 
 function helpText(message) { //displays a message showing off all commands capable
 	console.log("Received a help command.");
-	message.channel.send("Current command list: \n \n !insult: insults a random user \n !spotson: Tikki, spots on!");
+
+	var helpLength = text.help.length;
+	var helpText = "";
+
+	for (var x = 0; x < helpLength; x++) {
+		helpText += text.help[x] + "\n";
+	}
+
+	message.channel.send("Command list: \n \n" + helpText);
 }
 
 function insultUser(message) {
