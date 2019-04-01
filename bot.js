@@ -34,13 +34,13 @@ var khcID = '483017577602482198';
 
 bot.on('ready', () => { //event listener that readies up bot
 	console.log("Ready to go!");
-	console.log("Connecting as " + bot.user.tag + "\n" + "\n");
-	
+	console.log("Connecting as " + bot.user.tag + "\n");
+
 	bot.guilds.forEach((guild) => { //list all servers it's connected to
 		//console.log(" " + guild.name);
 		guildList[currentGuild] = guild.id;
 		currentGuild++;
-		
+
 
 		guild.channels.forEach((channel) => { //list all channels it finds
 			//console.log(" Name: " + channel.name + " ID: " + channel.id);
@@ -71,55 +71,62 @@ bot.on('ready', () => { //event listener that readies up bot
 bot.on('message', (message) => { //listens for messages
 	var msg = new String(message);
 
-	if (msg.indexOf("!") == 0) {
 
-		var commandText = msg.slice(1); //chops off the ! in commands to read the text
+	if (message.author == bot.user) { //the bot will read its own message and trigger itself if not caught by this
+	} else {
+		if (msg.indexOf("!") == 0) { //if the first character of a message is a command trigger
 
-		switch (commandText) {
-			case "insult": 
-				insultUser(message);
-				break;
+			var commandText = msg.slice(1); //chops off the ! in commands to read the text
 
-			case "help":
-				helpText(message);
-				break;
+			switch (commandText) {
+				case "insult":
+					insultUser(message);
+					break;
 
-			case "meme":
-				sendMeme(message);
-				break;
+				case "help":
+					helpText(message);
+					break;
 
-			case "spotson":
-				spotsOn(message);
-				break;
+				case "meme":
+					sendMeme(message);
+					break;
 
-			case "cointoss":
-				coinToss(message);
-				break;
+				case "spotson":
+					spotsOn(message);
+					break;
 
-			case "channelTest":
-				channelTest(message);
-				break;
+				case "clawsout":
+					clawsOut(message);
+					break;
 
-			default:
-				message.channel.send("Command not recognized. Check your spelling dumbass");
-				break;
+				case "cointoss":
+					coinToss(message);
+					break;
+
+				case "channelTest":
+					channelTest(message);
+					break;
+
+				default:
+					message.channel.send("Command not recognized. Check your spelling dumbass");
+					break;
+			}
 		}
 	}
+
+
 });
 
 bot.login(finalToken); //logs in the bot to discord servers
 
 function helpText(message) { //displays a message showing off all commands capable
-	console.log("Received a help command.");
+	console.log("Received a help command from " + message.guild.name);
+	var helpString = "";
 
-	var helpLength = text.help.length;
-	var helpText = "";
-
-	for (var x = 0; x < helpLength; x++) {
-		helpText += text.help[x] + "\n";
+	for (var test = 0; test < text.help.length; test++) {
+		helpString += text.help[test];
 	}
-
-	message.channel.send("Command list: \n \n" + helpText);
+	message.channel.send(helpString);
 }
 
 function insultUser(message) {
@@ -127,7 +134,7 @@ function insultUser(message) {
 
 	var randomInsultCall = Math.floor(Math.random() * text.insults.length); //get a random insult index, used in all server cases
 
-	if(message.guild.id == theCallID) {
+	if (message.guild.id == theCallID) {
 		message.channel.send("tactical roast inbound"); //send message to the call
 
 		var randomUserCall = Math.floor(Math.random() * theCallUsers.length); //get a random user index from call users
@@ -145,15 +152,23 @@ function sendMeme(message) {
 
 }
 
-function spotsOn(message) {
+function playMemeSound(message, type) {
 	if (message.member.voiceChannel && !isPlaying) { //if user who sent message is in a voice channel and sound not playing
 
 		var channel = message.member.voiceChannel; //save voice channel as ez variable
 		channel.join() //join that channel
 			.then(connection => { //create instance of connection
 				isPlaying = true;
-				message.reply("spots on!!!"); //tell user it's time
-				const dispatcher = connection.playFile("./resources/spotson.mp3"); //plays the audio file specified
+
+				var dispatcher;
+
+				if (type == 'ladybug') {
+					message.reply("Spots on!!!"); //tell user it's time
+					dispatcher = connection.playFile("./resources/spotson.mp3"); //plays ladybug sound
+				} else if (type == 'chatnoir') {
+					message.reply("Claws out!!!"); //tell user it's time
+					dispatcher = connection.playFile("./resources/clawsout.mp3"); //plays chat sound
+				}
 
 				dispatcher.on("end", (end) => { //when dispatcher is done, it emits an end signal
 					isPlaying = false;
@@ -162,14 +177,22 @@ function spotsOn(message) {
 			})
 			.catch(console.log);
 	} else if (isPlaying) { //if request arrives while sound playing, don't stop it
-		message.channel.send("Let her fucking finish");
+		message.channel.send("Let it fucking finish");
 	} else if (!message.member.voiceChannel) { //if member isn't in a voice channel
 		message.reply("You gotta be in a voice channel so you can hear this hoe");
 	}
 }
 
+function spotsOn(message) {
+	playMemeSound(message, 'ladybug');
+}
+
+function clawsOut(message) {
+	playMemeSound(message, 'chatnoir');
+}
+
 function coinToss(message) {
-	var toss = Math.floor(Math.random()*2); //generates a 0 or 1
+	var toss = Math.floor(Math.random() * 2); //generates a 0 or 1
 
 	if (toss == 0) {
 		message.channel.send("Flipped a coin, got heads");
@@ -193,7 +216,5 @@ function channelTest(message) { //test function for various features
 }
 
 function readValues() { //prints various values i want to see, just an internal test function
-	for (var i = 0; i < theCallUsers.length; i++) {
-		console.log(theCallUsers[i].displayName);
-	}
+	console.log(bot.user);
 }
