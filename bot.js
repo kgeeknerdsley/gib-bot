@@ -140,16 +140,23 @@ function insultUser(message) {
 		var randomUserCall = Math.floor(Math.random() * theCallUsers.length); //get a random user index from call users
 		var tempUser = theCallUsers[randomUserCall];
 
-		if (!tempUser.username == "test") {
-			message.channel.send("hey " + theCallUsers[randomUserCall] + "," + text.insults[randomInsultCall]);
+		if (!tempUser.user.bot) { //make sure the selected user isn't a bot
+			message.channel.send("hey " + tempUser + "," + text.insults[randomInsultCall]); 
+		} else { //otherwise...
+			message.channel.send("hey " + theCallUsers[randomUserCall-1] + "," + text.insults[randomInsultCall]); //call the user one above the bot
 		}
 		 //send a message with a random roast targeted to random user
 	} else if (message.guild.id == khcID) {
 		var randomUserKHC = Math.floor(Math.random() * khcUsers.length); //get a random user index
+		var tempUserKHC = khcUsers[randomUserKHC];
 
-		message.channel.send("hey " + khcUsers[randomUserKHC] + "," + text.insults[randomInsultCall]); //send a message with a random roast targeted to random user
+		if (!tempUserKHC.user.bot) { //if user not a bot
+			message.channel.send("hey " + tempUserKHC + "," + text.insults[randomInsultCall]); //send insult to selected user
+		} else { //if user is a bot
+			message.channel.send("hey " + khcUsers[randomUserKHC-1] + "," + text.insults[randomInsultCall]); //use the user one above
+		}
 	} else {
-		message.channel.send("Could not determine server this message came from. Tell Kevin he fucked up"); //if id isn't resolved. shouldn't happen
+		message.channel.send("Could not determine server. Has this code been updated for your server?"); //if id isn't resolved. shouldn't happen
 	}
 }
 
@@ -221,7 +228,5 @@ function channelTest(message) { //test function for various features
 }
 
 function readValues() { //prints various values i want to see, just an internal test function
-	for (var i = 0; i < currentUserCall.length; i++) {
-		console.log(currentUserCall[i].displayName);
-	}
+	console.log(khcUsers[3].user.bot);
 }
