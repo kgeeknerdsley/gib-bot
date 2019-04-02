@@ -62,7 +62,7 @@ bot.on('ready', () => { //event listener that readies up bot
 		})
 	})
 
-	//readValues();
+	readValues();
 
 });
 
@@ -138,7 +138,12 @@ function insultUser(message) {
 		message.channel.send("tactical roast inbound"); //send message to the call
 
 		var randomUserCall = Math.floor(Math.random() * theCallUsers.length); //get a random user index from call users
-		message.channel.send("hey " + theCallUsers[randomUserCall] + "," + text.insults[randomInsultCall]); //send a message with a random roast targeted to random user
+		var tempUser = theCallUsers[randomUserCall];
+
+		if (!tempUser.username == "test") {
+			message.channel.send("hey " + theCallUsers[randomUserCall] + "," + text.insults[randomInsultCall]);
+		}
+		 //send a message with a random roast targeted to random user
 	} else if (message.guild.id == khcID) {
 		var randomUserKHC = Math.floor(Math.random() * khcUsers.length); //get a random user index
 
@@ -216,5 +221,7 @@ function channelTest(message) { //test function for various features
 }
 
 function readValues() { //prints various values i want to see, just an internal test function
-	console.log(bot.user);
+	for (var i = 0; i < currentUserCall.length; i++) {
+		console.log(currentUserCall[i].displayName);
+	}
 }
